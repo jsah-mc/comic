@@ -1,0 +1,28 @@
+// shell.qml
+import Quickshell
+import "modules/pill"
+import "modules/sidebar"
+import "modules/wallpaper"
+import "modules/frame"
+import "modules/launcher"
+import "modules/connectivity"
+import "modules/powermenu"
+import "modules/notifications"
+import "modules/lockscreen"
+import "modules/volume"
+import "modules/controls"
+
+Scope {
+  ReloadPopup {}
+  Pill {}
+  Sidebar {}
+  Wallpaper {}
+  ScreenFrame {}
+  Launcher {}
+  Connectivity {}
+  PowerMenu {}
+  Notifications {}
+  LockScreen {}
+  Volume {}
+  Controls {}
+}
