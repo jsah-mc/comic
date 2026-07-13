@@ -119,18 +119,18 @@ Scope {
         height: root.activeExpanded ? 118 : 64
         scale: 0.98 + root.revealProgress * 0.02
         opacity: root.revealProgress
-        radius: 0
+        radius: Appearance.radius(0)
         topLeftRadius: 0
-        bottomLeftRadius: root.notificationQueue.length === 0 ? 18 : 0
+        bottomLeftRadius: root.notificationQueue.length === 0 ? Appearance.radius(18) : 0
         topRightRadius: 0
-        bottomRightRadius: root.notificationQueue.length === 0 ? 18 : 0
+        bottomRightRadius: root.notificationQueue.length === 0 ? Appearance.radius(18) : 0
         color: Colors.md3.surface
 
         clip: true
 
         Behavior on height { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
 
-        Rectangle { z: -1; x: -6; y: 5; width: parent.width + 6; height: parent.height + 6; radius: 14; color: "#66000000" }
+        Rectangle { z: -1; x: -6; y: 5; width: parent.width + 6; height: parent.height + 6; radius: Appearance.radius(14); color: "#66000000" }
 
         Row {
           anchors.fill: parent
@@ -145,7 +145,7 @@ Scope {
             anchors.verticalCenter: parent.verticalCenter
             width: 40
             height: 40
-            radius: 20
+            radius: Appearance.radius(20)
             color: Colors.md3.surface
 
             Text {
@@ -204,17 +204,17 @@ Scope {
             readonly property bool isLastVisible: index === Math.min(root.notificationQueue.length, 3) - 1
             width: 400
             height: expanded ? 118 : 64
-            radius: 0
+            radius: Appearance.radius(0)
             topLeftRadius: 0
-            bottomLeftRadius: isLastVisible ? 14 : 0
+            bottomLeftRadius: isLastVisible ? Appearance.radius(14) : 0
             topRightRadius: 0
-            bottomRightRadius: isLastVisible ? 14 : 0
+            bottomRightRadius: isLastVisible ? Appearance.radius(14) : 0
             color: Colors.md3.surface
             clip: true
 
             Behavior on height { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
 
-            Rectangle { z: -1; x: -6; y: 5; width: parent.width + 6; height: parent.height + 6; radius: 14; color: "#66000000" }
+            Rectangle { z: -1; x: -6; y: 5; width: parent.width + 6; height: parent.height + 6; radius: Appearance.radius(14); color: "#66000000" }
 
             Row {
               anchors.fill: parent
@@ -228,7 +228,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter
                 width: 40
                 height: 40
-                radius: 20
+                radius: Appearance.radius(20)
                 color: Colors.md3.surface_container_high
                 Text {
                   anchors.centerIn: parent
@@ -262,7 +262,7 @@ Scope {
 
       RoundCorner {
         anchors { top: popup.top; right: popup.left; rightMargin: -1 }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopRight
@@ -270,7 +270,7 @@ Scope {
 
       RoundCorner {
         anchors { top: popup.top; left: popup.right; leftMargin: -1 }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopLeft

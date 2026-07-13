@@ -48,7 +48,7 @@ Row {
 
       width: isFocused ? 42 : 30
       height: 28
-      radius: height / 2
+      radius: Appearance.radius(height / 2)
       color: isFocused ? Colors.md3.primary_container
         : workspaceHover.hovered ? Colors.md3.surface_container_highest
         : Colors.md3.surface_container_high

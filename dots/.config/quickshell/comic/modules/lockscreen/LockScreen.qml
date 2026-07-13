@@ -111,7 +111,7 @@ Scope {
           anchors.horizontalCenter: parent.horizontalCenter
           width: root.lockExpanded ? 390 : 190
           height: root.lockExpanded ? 194 : 40
-          radius: root.lockExpanded ? 28 : 20
+          radius: Appearance.radius(root.lockExpanded ? 28 : 20)
           topLeftRadius: 0
           topRightRadius: 0
           color: Colors.md3.surface
@@ -190,7 +190,7 @@ Scope {
                   Qt.callLater(() => forceActiveFocus());
               }
               background: Rectangle {
-                radius: 22
+                radius: Appearance.radius(22)
                 color: Colors.md3.surface_container_high
               }
               Keys.onReturnPressed: root.authenticate(text)
@@ -216,14 +216,14 @@ Scope {
 
           RoundCorner {
             anchors { top: parent.top; right: parent.left; rightMargin: -1 }
-            implicitSize: 14
+            implicitSize: Appearance.radius(14)
             color: Colors.md3.surface
             corner: RoundCorner.CornerEnum.TopRight
           }
 
           RoundCorner {
             anchors { top: parent.top; left: parent.right; leftMargin: -1 }
-            implicitSize: 14
+            implicitSize: Appearance.radius(14)
             color: Colors.md3.surface
             corner: RoundCorner.CornerEnum.TopLeft
           }
@@ -245,7 +245,7 @@ Scope {
             ]
             Rectangle {
               required property var modelData
-              width: 48; height: 48; radius: 24
+              width: 48; height: 48; radius: Appearance.radius(24)
               color: powerHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
               Text { anchors.centerIn: parent; text: modelData.icon; color: Colors.md3.on_surface; font.family: materialIcons.name; font.pixelSize: 20 }
               HoverHandler { id: powerHover }

@@ -8,7 +8,7 @@ Scope {
   id: root
 
   property int frameWidth: 10
-  property int cornerRadius: 24
+  readonly property int cornerRadius: Appearance.radius(24)
   property color frameColor: Colors.md3.surface
   property color outerCornerColor: "black"
 

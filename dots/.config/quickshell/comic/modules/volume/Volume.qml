@@ -94,7 +94,7 @@ Scope {
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter; topMargin: 10 }
         width: 120 + 230 * root.revealProgress
         height: 36 + 62 * root.revealProgress
-        radius: 18 + 10 * root.revealProgress
+        radius: Appearance.radius(18 + 10 * root.revealProgress)
         topLeftRadius: 0
         topRightRadius: 0
         color: Colors.md3.surface
@@ -128,12 +128,12 @@ Scope {
             Rectangle {
               width: parent.width
               height: 8
-              radius: 4
+              radius: Appearance.radius(4)
               color: Colors.md3.surface_container_highest
               Rectangle {
                 width: parent.width * Math.min(root.level, 150) / 150
                 height: parent.height
-                radius: 4
+                radius: Appearance.radius(4)
                 color: root.muted ? Colors.md3.error : Colors.md3.primary
                 Behavior on width { NumberAnimation { duration: 140; easing.type: Easing.OutCubic } }
               }
@@ -144,12 +144,12 @@ Scope {
 
       RoundCorner {
         anchors { top: volumePanel.top; right: volumePanel.left; rightMargin: -1 }
-        implicitSize: 14; color: Colors.md3.surface; opacity: root.revealProgress
+        implicitSize: Appearance.radius(14); color: Colors.md3.surface; opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopRight
       }
       RoundCorner {
         anchors { top: volumePanel.top; left: volumePanel.right; leftMargin: -1 }
-        implicitSize: 14; color: Colors.md3.surface; opacity: root.revealProgress
+        implicitSize: Appearance.radius(14); color: Colors.md3.surface; opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopLeft
       }
     }

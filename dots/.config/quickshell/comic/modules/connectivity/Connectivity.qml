@@ -180,7 +180,7 @@ Scope {
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter; topMargin: 10 }
         width: 120 + 280 * root.revealProgress
         height: 36 + 334 * root.revealProgress
-        radius: 18 + 2 * root.revealProgress
+        radius: Appearance.radius(18 + 2 * root.revealProgress)
         topLeftRadius: 0
         topRightRadius: 0
         color: Colors.md3.surface
@@ -207,7 +207,7 @@ Scope {
             Rectangle {
               width: 90
               height: 34
-              radius: 17
+              radius: Appearance.radius(17)
               color: (root.page === "wifi" ? root.wifiEnabled : root.bluetoothEnabled) ? Colors.md3.primary_container : Colors.md3.surface_container_high
               Text {
                 anchors.centerIn: parent
@@ -221,7 +221,7 @@ Scope {
             Rectangle {
               width: root.page === "wifi" ? 90 : 120
               height: 34
-              radius: 17
+              radius: Appearance.radius(17)
               color: actionHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
               Text {
                 anchors.centerIn: parent
@@ -262,7 +262,7 @@ Scope {
             placeholderTextColor: Colors.md3.on_surface_variant
             leftPadding: 14
             rightPadding: 14
-            background: Rectangle { radius: 20; color: passwordField.activeFocus ? Colors.md3.primary_container : Colors.md3.surface_container_high }
+            background: Rectangle { radius: Appearance.radius(20); color: passwordField.activeFocus ? Colors.md3.primary_container : Colors.md3.surface_container_high }
             onVisibleChanged: { if (visible) Qt.callLater(() => forceActiveFocus()); }
             Keys.onReturnPressed: root.submitWifi()
             Keys.onEnterPressed: root.submitWifi()
@@ -292,7 +292,7 @@ Scope {
                   required property int index
                   width: deviceList.width
                   height: 58
-                  radius: 14
+                  radius: Appearance.radius(14)
                   color: index === root.selectedIndex ? Colors.md3.primary_container : itemHover.hovered ? Colors.md3.surface_container_high : Colors.md3.surface_container
                   Behavior on color { ColorAnimation { duration: 120 } }
                   Row {
@@ -323,7 +323,7 @@ Scope {
           anchors.centerIn: parent
           width: 44
           height: 44
-          Rectangle { anchors.fill: parent; radius: 22; color: Colors.md3.surface_container_high; opacity: 0.92 }
+          Rectangle { anchors.fill: parent; radius: Appearance.radius(22); color: Colors.md3.surface_container_high; opacity: 0.92 }
           Text {
             anchors.centerIn: parent
             text: "󰑐"
@@ -337,7 +337,7 @@ Scope {
 
       RoundCorner {
         anchors { top: connectivityPanel.top; right: connectivityPanel.left; rightMargin: -1 }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopRight
@@ -345,7 +345,7 @@ Scope {
 
       RoundCorner {
         anchors { top: connectivityPanel.top; left: connectivityPanel.right; leftMargin: -1 }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopLeft

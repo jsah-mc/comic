@@ -85,7 +85,7 @@ Scope {
       width: 120 + 440 * root.revealProgress
       height: 36 + ((root.failed ? 250 : 76) - 36) * root.revealProgress
       opacity: root.revealProgress
-      radius: 18 + 6 * root.revealProgress
+      radius: Appearance.radius(18 + 6 * root.revealProgress)
       topLeftRadius: 0
       topRightRadius: 0
       color: Colors.md3.surface
@@ -108,7 +108,7 @@ Scope {
           Rectangle {
             width: 40
             height: 40
-            radius: 20
+            radius: Appearance.radius(20)
             color: root.failed ? Colors.md3.error_container : Colors.md3.primary_container
 
             Text {
@@ -146,7 +146,7 @@ Scope {
           Rectangle {
             width: 40
             height: 40
-            radius: 20
+            radius: Appearance.radius(20)
             color: closeHover.hovered ? Colors.md3.surface_container_highest : Colors.md3.surface_container_high
 
             Text {
@@ -165,7 +165,7 @@ Scope {
           visible: root.failed
           width: parent.width
           height: root.failed ? 142 : 0
-          radius: 14
+          radius: Appearance.radius(14)
           color: Colors.md3.surface_container
           clip: true
 
@@ -199,7 +199,7 @@ Scope {
           bottomMargin: 8
         }
         height: 4
-        radius: 2
+        radius: Appearance.radius(2)
         color: Colors.md3.surface_container_highest
 
         Rectangle {
@@ -213,7 +213,7 @@ Scope {
 
     RoundCorner {
       anchors { top: reloadPanel.top; right: reloadPanel.left; rightMargin: -1 }
-      implicitSize: 14
+      implicitSize: Appearance.radius(14)
       color: Colors.md3.surface
       opacity: root.revealProgress
       corner: RoundCorner.CornerEnum.TopRight
@@ -221,7 +221,7 @@ Scope {
 
     RoundCorner {
       anchors { top: reloadPanel.top; left: reloadPanel.right; leftMargin: -1 }
-      implicitSize: 14
+      implicitSize: Appearance.radius(14)
       color: Colors.md3.surface
       opacity: root.revealProgress
       corner: RoundCorner.CornerEnum.TopLeft

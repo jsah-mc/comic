@@ -264,6 +264,12 @@ switch() {
     fi
     [[ -n "$type_flag" ]] && matugen_args+=(--type "$type_flag")
 
+    if [[ -n "$type_flag" ]]; then
+        mkdir -p "$STATE_DIR/wallpaper"
+        printf '%s\n' "$type_flag" > "$STATE_DIR/wallpaper/scheme.txt.tmp"
+        mv "$STATE_DIR/wallpaper/scheme.txt.tmp" "$STATE_DIR/wallpaper/scheme.txt"
+    fi
+
     pre_process "$mode_flag"
 
     matugen "${matugen_args[@]}"
@@ -280,6 +286,18 @@ main() {
     color_flag=""
     color=""
     noswitch_flag=""
+
+    # Quickshell calls this script with the direct positional interface:
+    #   set_wall "$imgpath" "$mode_flag" "$type_flag" "$color_flag" "$color"
+    # Keep the named flags below for terminal usage as well.
+    if [[ $# -gt 0 && "$1" != --* ]]; then
+        imgpath="${1:-}"
+        mode_flag="${2:-}"
+        type_flag="${3:-}"
+        color_flag="${4:-}"
+        color="${5:-}"
+        shift "$#"
+    fi
 
     get_type_from_config() {
         jq -r '.appearance.palette.type' "$SHELL_CONFIG_FILE" 2>/dev/null || echo "auto"

@@ -24,8 +24,10 @@ Scope {
   property string accentColor: ""
   property real wallpaperTransition: 1
   property int wallpaperAnimation: 0
+  property bool startupRestoreAttempted: false
   readonly property string currentWallpaperPath: Quickshell.env("HOME") + "/.local/state/quickshell/wallpaper/current.txt"
   readonly property string currentThemePath: Quickshell.env("HOME") + "/.local/state/quickshell/wallpaper/theme.txt"
+  readonly property string currentSchemePath: Quickshell.env("HOME") + "/.local/state/quickshell/wallpaper/scheme.txt"
   readonly property string setWallScript: Qt.resolvedUrl("../../scripts/set_wall").toString().replace("file://", "")
 
   onOpenedChanged: revealProgress = opened ? 1 : 0
@@ -58,10 +60,22 @@ Scope {
       Quickshell.execDetached([setWallScript, selectedPath, themeMode, schemeType, colorFlag, accentColor]);
   }
 
+  function setScheme(type) {
+    schemeType = type;
+    if (selectedPath.length > 0)
+      Quickshell.execDetached([setWallScript, selectedPath, themeMode, schemeType, colorFlag, accentColor]);
+  }
+
   function loadCurrentWallpaper() {
     const path = currentWallpaperFile.text().trim();
-    if (path.length > 0)
-      selectedPath = path;
+    if (path.length > 0) {
+      if (path.startsWith("/"))
+        selectedPath = path;
+      else if (path.startsWith("file://"))
+        selectedPath = decodeURIComponent(path.replace("file://", ""));
+      else
+        selectedPath = Quickshell.env("HOME") + "/" + path;
+    }
   }
 
   FileView {
@@ -73,6 +87,31 @@ Scope {
 
     onLoaded: root.loadCurrentWallpaper()
     onFileChanged: reload()
+  }
+
+  FileView {
+    id: currentSchemeFile
+    path: root.currentSchemePath
+    watchChanges: true
+    preload: true
+    printErrors: false
+    onLoaded: {
+      const scheme = text().trim();
+      if (scheme.length > 0)
+        root.schemeType = scheme;
+    }
+    onFileChanged: reload()
+  }
+
+  Timer {
+    interval: 1400
+    running: true
+    repeat: false
+    onTriggered: {
+      root.startupRestoreAttempted = true;
+      if (root.isVideoPath(root.selectedPath))
+        Quickshell.execDetached([root.setWallScript, root.selectedPath, root.themeMode, root.schemeType, root.colorFlag, root.accentColor]);
+    }
   }
 
   FileView {
@@ -122,6 +161,8 @@ Scope {
     function open(): void { root.opened = true; }
     function close(): void { root.opened = false; }
     function set(path: string): void { root.setWallpaper(path); }
+    function toggleTheme(): void { root.toggleTheme(); }
+    function setScheme(type: string): void { root.setScheme(type); }
   }
 
   FolderListModel {
@@ -155,7 +196,7 @@ Scope {
 
       Image {
         anchors.fill: parent
-        source: root.selectedPath
+        source: root.isVideoPath(root.selectedPath) ? "" : root.selectedPath
         fillMode: Image.PreserveAspectCrop
         asynchronous: true
         cache: true
@@ -203,7 +244,7 @@ Scope {
         height: Math.min(parent.height - 80, 650)
         scale: 0.94 + root.revealProgress * 0.06
         opacity: root.revealProgress
-        radius: 22
+        radius: Appearance.radius(22)
         color: Colors.md3.surface
 
 
@@ -240,7 +281,7 @@ Scope {
             Rectangle {
               width: 122
               height: 34
-              radius: 17
+              radius: Appearance.radius(17)
               color: folderHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
               scale: folderHover.hovered ? 1.04 : 1
               Behavior on color { ColorAnimation { duration: 150 } }
@@ -264,7 +305,7 @@ Scope {
             Rectangle {
               width: 100
               height: 34
-              radius: 17
+              radius: Appearance.radius(17)
               color: themeHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
               scale: themeHover.hovered ? 1.04 : 1
               Behavior on color { ColorAnimation { duration: 150 } }
@@ -282,7 +323,7 @@ Scope {
             Rectangle {
               width: 34
               height: 34
-              radius: 17
+              radius: Appearance.radius(17)
               color: closeHover.hovered ? Colors.md3.surface_container_highest : Colors.md3.surface_container_high
               Text {
                 anchors.centerIn: parent
@@ -332,7 +373,7 @@ Scope {
               Rectangle {
                 anchors.fill: parent
                 anchors.margins: 6
-                radius: 14
+                radius: Appearance.radius(14)
                 color: Colors.md3.surface_container
                 clip: true
 

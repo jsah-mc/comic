@@ -166,7 +166,7 @@ Scope {
         }
         width: 120 + 400 * root.revealProgress
         height: 36 + 470 * root.revealProgress
-        radius: 18 + 6 * root.revealProgress
+        radius: Appearance.radius(18 + 6 * root.revealProgress)
         topLeftRadius: 0
         topRightRadius: 0
         color: Colors.md3.surface
@@ -221,7 +221,7 @@ Scope {
               }
 
               background: Rectangle {
-                radius: 20
+                radius: Appearance.radius(20)
                 color: Colors.md3.surface_container_high
               }
 
@@ -232,7 +232,7 @@ Scope {
               id: closeButton
               width: 40
               height: 40
-              radius: 20
+              radius: Appearance.radius(20)
               color: closeHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
 
               Text {
@@ -257,7 +257,7 @@ Scope {
                 required property var modelData
                 width: (parent.width - 16) / 3
                 height: 32
-                radius: 16
+                radius: Appearance.radius(16)
                 color: root.page === modelData.key ? Colors.md3.primary_container : Colors.md3.surface_container
                 Behavior on color { ColorAnimation { duration: 140 } }
                 Text { anchors.centerIn: parent; text: modelData.label; color: root.page === modelData.key ? Colors.md3.on_primary_container : Colors.md3.on_surface }
@@ -297,7 +297,7 @@ Scope {
                   required property int index
                   width: (appGrid.width - appGrid.columnSpacing * 4) / 5
                   height: 88
-                  radius: 14
+                  radius: Appearance.radius(14)
                   color: index === root.selectedIndex ? Colors.md3.primary_container : appHover.hovered ? Colors.md3.surface_container_high : "transparent"
                   scale: appHover.hovered || index === root.selectedIndex ? 1.04 : 1
                   Behavior on color { ColorAnimation { duration: 120 } }
@@ -367,7 +367,7 @@ Scope {
                   required property int index
                   width: clipboardList.width
                   height: 54
-                  radius: 12
+                  radius: Appearance.radius(12)
                   color: index === root.selectedIndex ? Colors.md3.primary_container : clipHover.hovered ? Colors.md3.surface_container_high : Colors.md3.surface_container
                   Behavior on color { ColorAnimation { duration: 120 } }
                   Text { anchors.fill: parent; anchors.margins: 12; text: modelData; color: Colors.md3.on_surface; elide: Text.ElideRight; verticalAlignment: Text.AlignVCenter }
@@ -397,7 +397,7 @@ Scope {
                   required property int index
                   width: (emojiGrid.width - 49) / 8
                   height: width
-                  radius: 12
+                  radius: Appearance.radius(12)
                   color: index === root.selectedIndex || emojiHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container
                   scale: emojiHover.hovered || index === root.selectedIndex ? 1.06 : 1
                   Behavior on color { ColorAnimation { duration: 120 } }
@@ -424,7 +424,7 @@ Scope {
           right: launcherPanel.left
           rightMargin: -1
         }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopRight
@@ -436,7 +436,7 @@ Scope {
           left: launcherPanel.right
           leftMargin: -1
         }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopLeft

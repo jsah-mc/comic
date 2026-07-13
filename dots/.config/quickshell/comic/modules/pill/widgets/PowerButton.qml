@@ -6,7 +6,7 @@ Rectangle {
   FontLoader { id: materialIcons; source: "file:///usr/share/fonts/TTF/MaterialDesignIcons.ttf" }
   width: 28
   height: 28
-  radius: 14
+  radius: Appearance.radius(14)
   color: buttonHover.hovered ? Colors.md3.error_container : Colors.md3.surface_container_high
   scale: buttonHover.hovered ? 1.08 : 1
   Behavior on color { ColorAnimation { duration: 140 } }

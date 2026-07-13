@@ -16,7 +16,7 @@ Rectangle {
 
   width: trayContent.implicitWidth + 16
   height: 28
-  radius: height / 2
+  radius: Appearance.radius(height / 2)
   color: Colors.md3.surface_container_high
 
   function refresh() {

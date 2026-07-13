@@ -11,6 +11,8 @@ import "modules/notifications"
 import "modules/lockscreen"
 import "modules/volume"
 import "modules/controls"
+import "modules/polkit"
+import "modules/settings"
 
 Scope {
   ReloadPopup {}
@@ -25,4 +27,6 @@ Scope {
   LockScreen {}
   Volume {}
   Controls {}
+  PolkitDialog {}
+  Settings {}
 }

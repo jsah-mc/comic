@@ -3,14 +3,11 @@ import QtQuick
 import qs.modules.common
 
 Rectangle {
-  FontLoader {
-    id: materialIcons
-    source: "file:///usr/share/fonts/TTF/MaterialDesignIcons.ttf"
-  }
+  FontLoader { id: materialIcons; source: "file:///usr/share/fonts/TTF/MaterialDesignIcons.ttf" }
 
   width: 28
   height: 28
-  radius: Appearance.radius(height / 2)
+  radius: Appearance.radius(14)
   color: buttonHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
   scale: buttonHover.hovered ? 1.08 : 1
 
@@ -19,17 +16,12 @@ Rectangle {
 
   Text {
     anchors.centerIn: parent
-    text: "󰕰"
+    text: "󰒓"
     color: Colors.md3.on_surface
     font.family: materialIcons.name
     font.pixelSize: 15
   }
 
-  HoverHandler {
-    id: buttonHover
-  }
-
-  TapHandler {
-    onTapped: Quickshell.execDetached(["qs", "-c", "comic", "ipc", "call", "sidebar", "toggle"])
-  }
+  HoverHandler { id: buttonHover }
+  TapHandler { onTapped: Quickshell.execDetached(["qs", "-c", "comic", "ipc", "call", "settings", "toggle"]) }
 }

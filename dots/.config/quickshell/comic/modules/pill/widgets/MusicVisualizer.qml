@@ -31,7 +31,7 @@ Item {
         anchors.bottom: parent.bottom
         width: 3
         height: Math.max(2, root.levels[index] / 100 * 20)
-        radius: 1.5
+        radius: Appearance.radius(1.5)
         color: index === 2 ? Colors.md3.secondary : Colors.md3.primary
 
         Behavior on height {

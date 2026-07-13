@@ -66,7 +66,7 @@ Scope {
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter; topMargin: 10 }
         width: 120 + 430 * root.revealProgress
         height: 36 + 94 * root.revealProgress
-        radius: 18 + 4 * root.revealProgress
+        radius: Appearance.radius(18 + 4 * root.revealProgress)
         topLeftRadius: 0
         topRightRadius: 0
         color: Colors.md3.surface
@@ -88,7 +88,7 @@ Scope {
               required property int index
               width: 94
               height: 82
-              radius: 16
+              radius: Appearance.radius(16)
               color: actionHover.hovered || index === root.selectedAction ? (modelData.label === "Power off" ? Colors.md3.error_container : Colors.md3.primary_container) : Colors.md3.surface_container
               scale: actionHover.hovered ? 1.04 : 1
               Behavior on color { ColorAnimation { duration: 120 } }
@@ -108,12 +108,12 @@ Scope {
 
       RoundCorner {
         anchors { top: powerPanel.top; right: powerPanel.left; rightMargin: -1 }
-        implicitSize: 14; color: Colors.md3.surface; opacity: root.revealProgress
+        implicitSize: Appearance.radius(14); color: Colors.md3.surface; opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopRight
       }
       RoundCorner {
         anchors { top: powerPanel.top; left: powerPanel.right; leftMargin: -1 }
-        implicitSize: 14; color: Colors.md3.surface; opacity: root.revealProgress
+        implicitSize: Appearance.radius(14); color: Colors.md3.surface; opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopLeft
       }
     }

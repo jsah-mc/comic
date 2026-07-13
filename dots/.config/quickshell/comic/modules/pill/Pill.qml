@@ -37,7 +37,7 @@ Scope {
           ? Math.max(collapsedWidth, expandedWidth)
           : collapsedWidth
         height: 40
-        radius: height / 2
+        radius: Appearance.radius(height / 2)
         topLeftRadius: 0
         topRightRadius: 0
         color: Colors.md3.surface
@@ -87,6 +87,7 @@ Scope {
           ConnectivityTray {}
           WallpaperButton {}
           SidebarButton {}
+          SettingsButton {}
           LauncherButton {}
           PowerButton {}
         }
@@ -99,7 +100,7 @@ Scope {
           right: pill.left
           rightMargin: -1
         }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         corner: RoundCorner.CornerEnum.TopRight
       }
@@ -110,7 +111,7 @@ Scope {
           left: pill.right
           leftMargin: -1
         }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         corner: RoundCorner.CornerEnum.TopLeft
       }

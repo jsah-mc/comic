@@ -59,7 +59,7 @@ Scope {
       y: control.topPadding + control.availableHeight / 2 - height / 2
       width: control.availableWidth
       height: 9
-      radius: 4.5
+      radius: Appearance.radius(4.5)
       color: Colors.md3.surface_container_highest
 
       Rectangle {
@@ -75,7 +75,7 @@ Scope {
       y: control.topPadding + control.availableHeight / 2 - height / 2
       width: control.pressed ? 25 : 22
       height: width
-      radius: width / 2
+      radius: Appearance.radius(width / 2)
       color: "white"
       scale: control.pressed ? 1.08 : 1
       Behavior on width { NumberAnimation { duration: 120 } }
@@ -101,7 +101,7 @@ Scope {
 
       Rectangle {
         anchors.fill: parent
-        radius: height / 2
+        radius: Appearance.radius(height / 2)
         color: Colors.md3.surface_container_highest
       }
 
@@ -127,7 +127,7 @@ Scope {
       Rectangle {
         id: capsuleMask
         anchors.fill: parent
-        radius: height / 2
+        radius: Appearance.radius(height / 2)
         color: "white"
         visible: false
         layer.enabled: true
@@ -218,11 +218,11 @@ Scope {
         width: 120 + (Math.min(1016, parent.width - root.frameInset * 2) - 120) * root.revealProgress
         height: 36 + (Math.min(480, parent.height - root.frameInset * 2) - 36) * root.revealProgress
         opacity: root.revealProgress
-        radius: 18 + 2 * root.revealProgress
+        radius: Appearance.radius(18 + 2 * root.revealProgress)
         topLeftRadius: 0
         topRightRadius: 0
-        bottomLeftRadius: 20
-        bottomRightRadius: 20
+        bottomLeftRadius: Appearance.radius(20)
+        bottomRightRadius: Appearance.radius(20)
         color: Colors.md3.surface
         clip: true
 
@@ -266,7 +266,7 @@ Scope {
               Rectangle {
                 width: 36
                 height: 36
-                radius: 18
+                radius: Appearance.radius(18)
                 color: powerHover.hovered ? Colors.md3.secondary_container : Colors.md3.surface_container_high
 
                 Text {
@@ -290,7 +290,7 @@ Scope {
               Rectangle {
                 Layout.preferredWidth: 250
                 Layout.fillHeight: true
-                radius: 18
+                radius: Appearance.radius(18)
                 color: Colors.md3.primary_container
                 Column {
                   anchors.centerIn: parent
@@ -345,7 +345,7 @@ Scope {
               Rectangle {
                 Layout.preferredWidth: 280
                 Layout.fillHeight: true
-                radius: 18
+                radius: Appearance.radius(18)
                 color: Colors.md3.surface_container
                 clip: true
                 Column {
@@ -364,7 +364,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: 18
+                radius: Appearance.radius(18)
                 color: Colors.md3.surface_container
                 Column {
                   anchors.fill: parent
@@ -389,7 +389,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 52
-                radius: 14
+                radius: Appearance.radius(14)
                 color: root.wifiEnabled ? Colors.md3.primary_container : Colors.md3.surface_container
 
                 RowLayout {
@@ -414,7 +414,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 52
-                radius: 14
+                radius: Appearance.radius(14)
                 color: root.bluetoothEnabled ? Colors.md3.primary_container : Colors.md3.surface_container
 
                 RowLayout {
@@ -439,7 +439,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 52
-                radius: NotificationState.doNotDisturb ? 24 : 16
+                radius: Appearance.radius(NotificationState.doNotDisturb ? 24 : 16)
                 color: NotificationState.doNotDisturb ? Colors.md3.primary_container : (dndHover.hovered ? Colors.md3.surface_container_high : Colors.md3.surface_container)
                 Behavior on color { ColorAnimation { duration: 180 } }
                 Behavior on radius { NumberAnimation { duration: 180; easing.type: Easing.OutBack } }
@@ -447,7 +447,7 @@ Scope {
                   anchors.centerIn: parent
                   spacing: 10
                   Rectangle {
-                    width: 36; height: 36; radius: NotificationState.doNotDisturb ? 12 : 18
+                    width: 36; height: 36; radius: Appearance.radius(NotificationState.doNotDisturb ? 12 : 18)
                     color: NotificationState.doNotDisturb ? Colors.md3.primary : Colors.md3.surface_container_highest
                     Text { anchors.centerIn: parent; text: "󰂛"; color: NotificationState.doNotDisturb ? Colors.md3.on_primary : Colors.md3.on_surface; font.family: materialIcons.name; font.pixelSize: 18 }
                   }
@@ -463,7 +463,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 52
-                radius: 14
+                radius: Appearance.radius(14)
                 color: lockHover.hovered ? Colors.md3.surface_container_high : Colors.md3.surface_container
                 Row {
                   anchors.centerIn: parent
@@ -484,7 +484,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: 14
+                radius: Appearance.radius(14)
                 color: Colors.md3.surface_container
                 ColumnLayout {
                   anchors.fill: parent; anchors.margins: 10; spacing: 4
@@ -509,7 +509,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: 14
+                radius: Appearance.radius(14)
                 color: root.microphoneMuted ? Colors.md3.error_container : Colors.md3.surface_container
                 ColumnLayout {
                   anchors.fill: parent; anchors.margins: 10; spacing: 4
@@ -536,7 +536,7 @@ Scope {
               Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: 14
+                radius: Appearance.radius(14)
                 color: Colors.md3.surface_container
                 ColumnLayout {
                   anchors.fill: parent; anchors.margins: 10; spacing: 4
@@ -563,7 +563,7 @@ Scope {
             Rectangle {
               Layout.fillWidth: true
               Layout.preferredHeight: 40
-              radius: 14
+              radius: Appearance.radius(14)
               color: Colors.md3.surface_container
 
               RowLayout {
@@ -590,7 +590,7 @@ Scope {
           right: sidebarPanel.left
           rightMargin: -1
         }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopRight
@@ -602,7 +602,7 @@ Scope {
           left: sidebarPanel.right
           leftMargin: -1
         }
-        implicitSize: 14
+        implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         opacity: root.revealProgress
         corner: RoundCorner.CornerEnum.TopLeft

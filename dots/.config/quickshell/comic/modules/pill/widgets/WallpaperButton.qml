@@ -10,7 +10,7 @@ Rectangle {
 
   width: 28
   height: 28
-  radius: height / 2
+  radius: Appearance.radius(height / 2)
   color: buttonHover.hovered ? Colors.md3.primary_container : Colors.md3.surface_container_high
   scale: buttonHover.hovered ? 1.1 : 1
 
