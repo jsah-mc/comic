@@ -18,6 +18,8 @@ readonly -a PACKAGES=(
   matugen
   vesktop
   visual-studio-code-bin
+  chezmoi
+  helium-browser-bin
 )
 
 if [[ ! -r /etc/arch-release ]] || ! command -v pacman >/dev/null 2>&1; then
@@ -83,32 +85,13 @@ install_packages() {
 
 install_dotfiles() {
   local dots_dir="$SCRIPT_DIR/dots"
-  local backup_dir="$HOME/.comic-dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
-  local source relative target
-  local backed_up=false
 
   if [[ ! -d "$dots_dir" ]]; then
     printf 'Error: dotfiles directory not found: %s\n' "$dots_dir" >&2
     return 1
   fi
 
-  while IFS= read -r -d '' source; do
-    relative="${source#"$dots_dir"/}"
-    target="$HOME/$relative"
-
-    if [[ -e "$target" || -L "$target" ]]; then
-      mkdir -p -- "$backup_dir/$(dirname -- "$relative")"
-      cp -a -- "$target" "$backup_dir/$relative"
-      backed_up=true
-    fi
-
-    mkdir -p -- "$(dirname -- "$target")"
-    cp -a -- "$source" "$target"
-  done < <(find "$dots_dir" -type f -print0)
-
-  if [[ "$backed_up" == true ]]; then
-    printf 'Existing dotfiles were backed up to %s\n' "$backup_dir"
-  fi
+  chezmoi apply --source "$dots_dir"
   echo "Comic Dotfiles installed successfully."
 }
 

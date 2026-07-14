@@ -4,15 +4,12 @@ import "widgets"
 import qs.modules.common
 
 Scope {
-  id: root
-
   Variants {
     model: Quickshell.screens
 
     PanelWindow {
       required property var modelData
       screen: modelData
-
       color: "transparent"
 
       anchors {
@@ -20,7 +17,7 @@ Scope {
         left: true
         right: true
       }
-    
+
       implicitHeight: 50
 
       Rectangle {
@@ -30,7 +27,7 @@ Scope {
           horizontalCenter: parent.horizontalCenter
           topMargin: 10
         }
-        readonly property real collapsedWidth: collapsedContent.childrenRect.width + 100
+        readonly property real collapsedWidth: Math.max(190, collapsedContent.childrenRect.width + 100)
         readonly property real expandedWidth: hoverContent.childrenRect.width + 24
 
         width: hoverHandler.hovered
@@ -44,30 +41,41 @@ Scope {
         clip: true
 
         Behavior on width {
-          NumberAnimation {
-            duration: 180
-            easing.type: Easing.OutCubic
-          }
+          NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
         }
 
-        HoverHandler {
-          id: hoverHandler
-        }
+        HoverHandler { id: hoverHandler }
 
         Row {
           id: collapsedContent
-          anchors.centerIn: parent
+          anchors {
+            left: parent.left
+            leftMargin: 12
+            verticalCenter: parent.verticalCenter
+          }
           spacing: 7
           opacity: hoverHandler.hovered ? 0 : 1
-
-          Behavior on opacity {
-            NumberAnimation { duration: 100 }
-          }
+          Behavior on opacity { NumberAnimation { duration: 100 } }
 
           CurrentWindowWidget {}
-          ClockWidget {}
           MusicVisualizer {}
           BatteryWidget {}
+        }
+
+        ClockWidget {
+          anchors.centerIn: parent
+          opacity: hoverHandler.hovered ? 0 : 1
+          Behavior on opacity { NumberAnimation { duration: 100 } }
+        }
+
+        CodexProgressWidget {
+          anchors {
+            right: parent.right
+            rightMargin: 12
+            verticalCenter: parent.verticalCenter
+          }
+          opacity: hoverHandler.hovered ? 0 : 1
+          Behavior on opacity { NumberAnimation { duration: 100 } }
         }
 
         Row {
@@ -75,15 +83,9 @@ Scope {
           anchors.centerIn: parent
           spacing: 6
           opacity: hoverHandler.hovered ? 1 : 0
+          Behavior on opacity { NumberAnimation { duration: 140 } }
 
-          Behavior on opacity {
-            NumberAnimation { duration: 140 }
-          }
-
-          WorkspacesWidget {
-            id: workspaceWidget
-          }
-
+          WorkspacesWidget {}
           ConnectivityTray {}
           WallpaperButton {}
           SidebarButton {}
@@ -91,26 +93,17 @@ Scope {
           LauncherButton {}
           PowerButton {}
         }
-
       }
 
       RoundCorner {
-        anchors {
-          top: pill.top
-          right: pill.left
-          rightMargin: -1
-        }
+        anchors { top: pill.top; right: pill.left; rightMargin: -1 }
         implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         corner: RoundCorner.CornerEnum.TopRight
       }
 
       RoundCorner {
-        anchors {
-          top: pill.top
-          left: pill.right
-          leftMargin: -1
-        }
+        anchors { top: pill.top; left: pill.right; leftMargin: -1 }
         implicitSize: Appearance.radius(14)
         color: Colors.md3.surface
         corner: RoundCorner.CornerEnum.TopLeft

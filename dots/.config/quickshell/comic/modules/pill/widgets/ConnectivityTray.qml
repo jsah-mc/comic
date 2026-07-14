@@ -13,9 +13,10 @@ Rectangle {
 
   property bool wifiEnabled: false
   property bool bluetoothEnabled: false
+  property bool vertical: false
 
   width: trayContent.implicitWidth + 16
-  height: 28
+  height: trayContent.implicitHeight + (vertical ? 12 : 8)
   radius: Appearance.radius(height / 2)
   color: Colors.md3.surface_container_high
 
@@ -24,10 +25,12 @@ Rectangle {
     bluetoothStatus.running = true;
   }
 
-  Row {
+  Grid {
     id: trayContent
     anchors.centerIn: parent
-    spacing: 8
+    columns: root.vertical ? 1 : 2
+    columnSpacing: 8
+    rowSpacing: 6
 
     Text {
       text: root.wifiEnabled ? "󰤨" : "󰤭"

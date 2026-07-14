@@ -19,6 +19,7 @@ Scope {
   property bool bluetoothLoading: false
   property var wifiNetworks: []
   property var bluetoothDevices: []
+  readonly property string currentSchemePath: Quickshell.env("HOME") + "/.local/state/quickshell/wallpaper/scheme.txt"
   readonly property var schemes: [
     { key: "auto", label: "Automatic" },
     { key: "scheme-tonal-spot", label: "Tonal Spot" },
@@ -37,6 +38,12 @@ Scope {
     schemeType = type;
     run(["qs", "-c", "comic", "ipc", "call", "wallpaper", "setScheme", type]);
   }
+
+  function loadCurrentScheme() {
+    const savedScheme = currentSchemeFile.text().trim();
+    if (schemes.some(scheme => scheme.key === savedScheme))
+      schemeType = savedScheme;
+  }
   function refreshWifi() {
     wifiLoading = true;
     if (!wifiStatus.running) wifiStatus.running = true;
@@ -51,6 +58,7 @@ Scope {
   onOpenedChanged: {
     revealProgress = opened ? 1 : 0;
     if (opened) {
+      currentSchemeFile.reload();
       refreshWifi();
       refreshBluetooth();
     }
@@ -63,6 +71,16 @@ Scope {
     function toggle(): void { root.opened = !root.opened; }
     function open(): void { root.opened = true; }
     function close(): void { root.opened = false; }
+  }
+
+  FileView {
+    id: currentSchemeFile
+    path: root.currentSchemePath
+    watchChanges: true
+    preload: true
+    printErrors: false
+    onLoaded: root.loadCurrentScheme()
+    onFileChanged: reload()
   }
 
   Process {
@@ -123,35 +141,52 @@ Scope {
     Rectangle {
       id: settingsPanel
       anchors.centerIn: parent
-      width: 180 + 580 * root.revealProgress
-      height: 60 + 500 * root.revealProgress
+      width: Math.min(900, parent.width - 24)
+      height: Math.min(590, parent.height - 24)
       opacity: root.revealProgress
-      scale: 0.92 + 0.08 * root.revealProgress
-      radius: Appearance.radius(28)
+      scale: 0.96 + 0.04 * root.revealProgress
+      radius: Appearance.radius(18)
       color: Colors.md3.surface
+      border.width: 1
+      border.color: Colors.md3.outline_variant
       clip: true
       TapHandler {}
 
+      Text {
+        anchors { top: parent.top; topMargin: 11; horizontalCenter: parent.horizontalCenter }
+        text: "Settings"
+        color: Colors.md3.on_surface
+        font.pixelSize: 20
+        font.bold: true
+      }
+
+      Rectangle {
+        anchors { top: parent.top; right: parent.right; margins: 10 }
+        width: 34; height: 34; radius: Appearance.radius(10)
+        color: closeHover.hovered ? Colors.md3.surface_container_highest : "transparent"
+        Text { anchors.centerIn: parent; text: "×"; color: Colors.md3.on_surface; font.pixelSize: 21; font.bold: true }
+        HoverHandler { id: closeHover }
+        TapHandler { onTapped: root.opened = false }
+      }
+
       Row {
-        anchors.fill: parent
-        anchors.margins: 14
-        spacing: 14
+        anchors { fill: parent; topMargin: 58; leftMargin: 10; rightMargin: 10; bottomMargin: 10 }
+        spacing: 10
         opacity: Math.max(0, (root.revealProgress - 0.18) / 0.82)
 
         Rectangle {
-          width: 178
+          width: 148
           height: parent.height
-          radius: Appearance.radius(20)
-          color: Colors.md3.surface_container
+          radius: Appearance.radius(14)
+          color: "transparent"
 
           Column {
             anchors.fill: parent
-            anchors.margins: 12
-            spacing: 8
+            anchors.margins: 8
+            spacing: 9
 
-            Text { text: "Settings"; color: Colors.md3.on_surface; font.pixelSize: 21; font.bold: true }
-            Text { text: "Comic shell"; color: Colors.md3.on_surface_variant; font.pixelSize: 10 }
-            Item { width: 1; height: 8 }
+            Text { text: "󰍜"; color: Colors.md3.on_surface_variant; font.family: iconFont.name; font.pixelSize: 20 }
+            Item { width: 1; height: 10 }
 
             NavButton { icon: "󰔎"; label: "Theme"; selected: root.page === "theme"; onActivated: root.page = "theme" }
             NavButton { icon: "󰤨"; label: "Wi-Fi"; selected: root.page === "wifi"; onActivated: root.page = "wifi" }
@@ -160,21 +195,15 @@ Scope {
           }
         }
 
-        Item {
-          width: parent.width - 192
+        Rectangle {
+          width: parent.width - 158
           height: parent.height
-
-          Rectangle {
-            anchors { top: parent.top; right: parent.right }
-            width: 38; height: 38; radius: Appearance.radius(19)
-            color: closeHover.hovered ? Colors.md3.surface_container_highest : Colors.md3.surface_container_high
-            Text { anchors.centerIn: parent; text: "×"; color: Colors.md3.on_surface; font.pixelSize: 23 }
-            HoverHandler { id: closeHover }
-            TapHandler { onTapped: root.opened = false }
-          }
+          radius: Appearance.radius(14)
+          color: Colors.md3.surface_container
+          clip: true
 
           Column {
-            anchors { fill: parent; topMargin: 4; rightMargin: 4 }
+            anchors { fill: parent; margins: 18 }
             spacing: 14
             visible: root.page === "theme"
 
@@ -244,10 +273,11 @@ Scope {
                 font.bold: true
               }
             }
+
           }
 
           Column {
-            anchors { fill: parent; topMargin: 4; rightMargin: 4 }
+            anchors { fill: parent; margins: 18 }
             spacing: 12
             visible: root.page === "wifi"
             Text { text: "Wi-Fi"; color: Colors.md3.on_surface; font.pixelSize: 22; font.bold: true }
@@ -270,7 +300,7 @@ Scope {
           }
 
           Column {
-            anchors { fill: parent; topMargin: 4; rightMargin: 4 }
+            anchors { fill: parent; margins: 18 }
             spacing: 12
             visible: root.page === "bluetooth"
             Text { text: "Bluetooth"; color: Colors.md3.on_surface; font.pixelSize: 22; font.bold: true }

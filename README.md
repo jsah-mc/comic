@@ -10,10 +10,18 @@ ONLY WORKS FOR ARCH LINUX AND ITS DERIVATES
 
 ## Installation
 
-Automated Online Install In Progress
+Clone the repository and run the installer:
 
 ```bash
 git clone https://github.com/jsah-mc/comic.git ~/.comic/installer/
 cd ~/.comic/installer/
 bash ./install.sh
+```
+
+The installer installs the required packages and applies the files in `dots/`
+with [chezmoi](https://www.chezmoi.io/). To apply only the dotfiles after
+cloning, run:
+
+```bash
+chezmoi apply --source ./dots
 ```

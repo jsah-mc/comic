@@ -8,6 +8,21 @@ QtObject {
   id: root
   property real cornerRadius: 24
 
+  function applyHyprlandRounding() {
+    Quickshell.execDetached([
+      "hyprctl", "eval",
+      "hl.config({ decoration = { rounding = " + Math.round(cornerRadius) + " } })"
+    ]);
+  }
+
+  property Timer hyprlandRoundingDebounce: Timer {
+    interval: 80
+    onTriggered: root.applyHyprlandRounding()
+  }
+
+  onCornerRadiusChanged: hyprlandRoundingDebounce.restart()
+  Component.onCompleted: hyprlandRoundingDebounce.restart()
+
   function radius(preferred) {
     return Math.max(0, Math.min(Number(preferred), cornerRadius));
   }

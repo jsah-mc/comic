@@ -34,7 +34,9 @@ Scope {
       }
 
       Rectangle {
-        anchors.fill: parent
+        anchors {
+          fill: parent
+        }
         color: "transparent"
         radius: root.cornerRadius
         border.width: root.frameWidth
