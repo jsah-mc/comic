@@ -20,6 +20,7 @@ readonly -a PACKAGES=(
   chezmoi
   helium-browser-bin
   comic-cli
+  plasma-workspace
 )
 
 if [[ ! -r /etc/arch-release ]] || ! command -v pacman >/dev/null 2>&1; then
