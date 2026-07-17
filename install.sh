@@ -15,7 +15,6 @@ readonly -a PACKAGES=(
   quickshell-git
   hypridle
   adw-gtk-theme
-  matugen
   vesktop
   visual-studio-code-bin
   chezmoi
@@ -96,6 +95,26 @@ install_dotfiles() {
   echo "Comic Dotfiles installed successfully."
 }
 
+download_wallpapers() {
+  local wallpaper_dir="$HOME/Pictures/Wallpapers"
+
+  if [[ -e "$wallpaper_dir" ]]; then
+    printf 'Wallpaper directory already exists; leaving it unchanged: %s\n' "$wallpaper_dir"
+    return 0
+  fi
+
+  mkdir -p -- "$(dirname -- "$wallpaper_dir")"
+
+  if ! gum spin \
+    --spinner dot \
+    --title "Downloading wallpapers" \
+    --show-error \
+    -- git clone --depth 1 https://github.com/mylinuxforwork/wallpaper.git "$wallpaper_dir"; then
+    printf 'Error: failed to download wallpapers.\n' >&2
+    return 1
+  fi
+}
+
 if command -v yay >/dev/null 2>&1; then
   echo "Yay is already installed."
 else
@@ -104,4 +123,5 @@ else
 fi
 
 install_packages "${PACKAGES[@]}"
+download_wallpapers
 install_dotfiles
