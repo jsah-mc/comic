@@ -20,6 +20,7 @@ readonly -a PACKAGES=(
   visual-studio-code-bin
   chezmoi
   helium-browser-bin
+  comic-cli
 )
 
 if [[ ! -r /etc/arch-release ]] || ! command -v pacman >/dev/null 2>&1; then
